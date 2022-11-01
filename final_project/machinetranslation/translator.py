@@ -1,6 +1,7 @@
 """
 Module created for translations between English and French
 """
+import ast
 import json
 import os
 
@@ -34,7 +35,9 @@ def english_to_french(english_text):
         text=english_text,
         model_id='en-fr').get_result()
     french_text = json.dumps(french_text, indent=2, ensure_ascii=False)
-    return french_text
+    french_text_dic = ast.literal_eval(french_text)
+    final = french_text_dic['translations'][0]['translation']
+    return final
 
 
 def french_to_english(french_text):
@@ -47,4 +50,11 @@ def french_to_english(french_text):
         text=french_text,
         model_id='fr-en').get_result()
     english_text = json.dumps(english_text, indent=2, ensure_ascii=False)
-    return english_text
+    english_text_dic = ast.literal_eval(english_text)
+    final = english_text_dic['translations'][0]['translation']
+    return final
+
+
+if __name__ == "__main__":
+    print(english_to_french("Hello"))
+    print(french_to_english("Bonjour"))
