@@ -1,33 +1,34 @@
-import json
-from ibm_watson import LanguageTranslatorV3
-from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 import os
+
 from dotenv import load_dotenv
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson import LanguageTranslatorV3
 
 load_dotenv()
 
-apikey = os.environ['apikey']
-url = os.environ['url']
-version='0.1'
+apikey = os.getenv('apikey')
+url = os.getenv('url')
 
-authenticator = IAMAuthenticator('{apikey}')
+version = '2022-11-01'
+
+authenticator = IAMAuthenticator(apikey)
 language_translator = LanguageTranslatorV3(
-    version='{version}',
+    version= version,
     authenticator=authenticator
 )
 
-language_translator.set_service_url('{url}')
+language_translator.set_service_url(url)
 
 
 def englishToFrench(englishText):
     frenchText = language_translator.translate(
-    text=englishText,
-    model_id='en-fr').get_result()
+        text=englishText,
+        model_id='en-fr').get_result()
     return frenchText
 
 
 def frenchToEnglish(frenchText):
     englishText = language_translator.translate(
-    text=frenchText,
-    model_id='fr-en').get_result()
+        text=frenchText,
+        model_id='fr-en').get_result()
     return englishText
