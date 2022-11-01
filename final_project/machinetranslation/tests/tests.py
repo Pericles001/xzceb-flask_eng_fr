@@ -24,3 +24,11 @@ class TestFrenchToEnglish(unittest.TestCase):
 
     def testTranslate(self):
         self.assertEqual(french_to_english("Bonjour"), "Hello")
+
+
+if __name__ == "__main__":
+    unittest.main()
+    print(TestFrenchToEnglish.testTranslate())
+    print(TestEnglishToFrench.testTranslate())
+    print(TestFrenchToEnglish.testNullInput())
+    print(TestEnglishToFrench.testNullInput())
